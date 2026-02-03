@@ -67,7 +67,7 @@ el1_entry:
 	bl 	memzero_aligned
 	
 setup_sp: 	
-	// quest: boot. Set sp to be at the end (or top) of the bootstack (cpu0)
+	// Q1: quest: boot. Set sp to be at the end (or top) of the bootstack (cpu0)
 	/* TODO: your code here */
 	ldr x1, =boot_stacks	// sched.c		
 	/* TODO: your code here */
