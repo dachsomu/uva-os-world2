@@ -4,7 +4,7 @@
 // visible to asm & C
 #define S_STACKFRAME      272
 // size of all saved registers. ok to be larger than actually used. 
-// Qx: quest: "two preemptive printers"
+// Q3: quest: "two preemptive printers"
 #define S_FRAME_SIZE	  0 /* STUDENT: TODO: replace this */
 
 // corresponding to index in the error messages cf irq.c entry_error_messages

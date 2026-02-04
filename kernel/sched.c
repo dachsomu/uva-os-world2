@@ -98,7 +98,7 @@ static int task_on_cpu(struct task_struct *p) {
 /* the scheduler, called by tasks or irq. invoked for both cooperative 
     (via yield()) and preemptive scheduling (via timer interrupt).
     caller must NOT hold sched_lock */
-// Qx: quest: "two cooperative printers"
+// Q2: quest: "two cooperative printers"
 void schedule() {
     V("cpu%d schedule", cpuid());
 
@@ -180,7 +180,7 @@ void leave_scheduler(void) {
 
 /* voluntarily reschedule; gives up all remaining schedule credits
 only called from tasks */
-// Qx: quest: "fast/slow donuts"
+// Q6: quest: "fast/slow donuts"
 void yield(void) {    
     struct task_struct *p = myproc(); 
     acquire(&sched_lock); p->credits = 0; release(&sched_lock);
@@ -189,7 +189,7 @@ void yield(void) {
 
 /* caller must hold sched_lock, and not holding next->lock
 called when preemption is disabled, so the cur task wont lose cpu */
-// Qx: quest: "two cooperative printers"
+// Q2: quest: "two cooperative printers"
 void switch_to(struct task_struct * next) {
 	struct task_struct * prev; 
     struct task_struct *cur; 
@@ -302,7 +302,7 @@ off the cpu */
 /* Wake up all processes sleeping on chan. Only change p->state; wont call
 schedule() return # of tasks woken up.
 Caller must hold sched_lock  */
-// Qx: quest: "wordsmith"
+// Q9: quest: "wordsmith"
 static int wakeup_nolock(void *chan) {
     struct task_struct *p;
     int cnt = 0; 
@@ -323,7 +323,7 @@ static int wakeup_nolock(void *chan) {
 /* Must be called WITHOUT sched_lock 
 Called from irq (many drivers) or task
 return # of tasks woken up */
-// Qx: quest: "wordsmith"
+// Q9: quest: "wordsmith"
 int wakeup(void *chan) {
     int cnt; 
     acquire(&sched_lock);     
@@ -335,7 +335,7 @@ int wakeup(void *chan) {
 /* Atomically release "lk" and sleep on chan.
 Reacquires lk when awakened.
 Called by tasks with @lk held */
-// Qx: quest: "wordsmith"
+// Q9: quest: "wordsmith"
 void sleep(void *chan, struct spinlock *lk) {
     struct task_struct *p = myproc();
 
@@ -473,7 +473,7 @@ int wait(uint64 addr /*dst user va to copy status to */) {
 /* Becomes a zombie task and switch the cpu away from it 
 only when parent calls wait() this zombie task successfully, the zombie's 
 kernel stack (and task_struct on it) will be recycled. */
-// Qx: quest: "kill a donut"
+// Q8: quest: "kill a donut"
 void exit_process(int status) {
     struct task_struct *p = myproc();
 
@@ -569,7 +569,7 @@ static int lastpid=0; // a hint for the next free tcb slot. slowdown pid reuse f
     arg: arg to kernel thread; or stack (userva) for user thread
     name: to be copied to task->name[]. if null, copy parent's name
 */
-// Qx: quest "two cooperative printers"
+// Q2: quest "two cooperative printers"
 int copy_process(unsigned long clone_flags, unsigned long fn, unsigned long arg,
     const char *name) {
 	struct task_struct *p = 0, *cur=myproc(); 

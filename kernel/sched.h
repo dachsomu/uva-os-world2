@@ -79,7 +79,7 @@ struct mm_struct {
 };
 
 /* the metadata describing a task */
-//Qx: quest:fast/slow donuts. Understand below
+//Q6: quest:fast/slow donuts. Understand below
 struct task_struct {
     /* private to the task, no task->lock needed */
     struct cpu_context cpu_context; // MUST COME FIRST. register values.

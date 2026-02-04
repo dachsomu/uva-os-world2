@@ -19,7 +19,7 @@ extern void donut(int x, int y); 	//donut.c
 
 struct cpu cpus[NCPU]; 
 
-// Qx: quest "two preemptive printers"
+// Q3: quest "two preemptive printers"
 void kernel_main() {
 	uart_init();
 	init_printf(NULL, putc);	
@@ -57,9 +57,9 @@ void init(int arg/*ignored*/) {
 	int wpid; 
     W("entering init");
 
-	// Qx: quest: "two cooperative printers"
+	// Q2: quest: "two cooperative printers"
 	/* STUDENT: TODO: your code here */
-	// Qx: quest: "two donuts"
+	// Q4: quest: "two donuts"
 	/* STUDENT: TODO: your code here */
 	// test_kern_task_mgmt();
 	// test_kern_reader_writer(); 

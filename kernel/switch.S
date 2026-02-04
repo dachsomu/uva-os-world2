@@ -1,6 +1,6 @@
 #include "sched.h"
 
-// Qx: quest: "two cooperative printers" (get help of gdb, AI)
+// Q2: quest: "two cooperative printers" (get help of gdb, AI)
 // void cpu_switch_to(struct task_struct* prev, struct task_struct* next)
 // save cpu regs (callee saved, sp/pc) to prev->cpu_context; 
 // load next->cpu_context to the cpu regs

@@ -200,7 +200,7 @@ void test_kern_task_mgmt(void) {
 // test kernel task sleep(), wakeup()
 // a toy version of reader/writer pipe
 // cf pipe.c 
-// Qx: quest: "wordsmith"
+// Q9: quest: "wordsmith"
 
 #define NSIZE 32
 static struct spinlock testlock = {.locked=0, .cpu=0, .name="testlock"};
@@ -299,7 +299,7 @@ void test_kern_reader_writer() {
 //  each task: draw donut animation on a canvas region. maximum 4 regions
 //  modeled after test_kern_tasks_print()
 
-// Qx: quest: "two donuts"
+// Q4: quest: "two donuts"
 
 extern void donut(int idx); 	//donut.c
 extern void donut_canvas_init(void); //donut.c don't forget to init canvas -- once

@@ -29,7 +29,7 @@
 	.endm
 
 /* -------------------------------------------------------------------------- */
-// Qx: quest: "two preemptive printers". compare to switch.S. why save x0-x18 here but not in switch.S?
+// Q3: quest: "two preemptive printers". compare to switch.S. why save x0-x18 here but not in switch.S?
 .macro	kernel_entry
 	/* The first thing to do in handling an exception: saving cpu state, notably
 	registers x0 - x30, to the stack. */
@@ -49,7 +49,7 @@ mrs x0, CurrentEL /* STUDENT: TODO: replace this */
 	.endm
 
 /* -------------------------------------------------------------------------- */
-// Qx: quest: "two preemptive printers"
+// Q3: quest: "two preemptive printers"
 .macro	kernel_exit
 	/* A mirror of kernel_entry (above), to be called as the last thing of an
 	exception handler */
@@ -113,7 +113,7 @@ ldp x30, x22, [sp] /* STUDENT: TODO: replace this */
 */		
 .align	11
 .globl vectors 
-// Qx: quest: "two preemptive printers"
+// Q3: quest: "two preemptive printers"
 vectors:
 	//  EL1t -- Exception happens when CPU is at EL1 while the stack pointer (SP) was set to be shared with EL0
 	ventry	sync_invalid_el1t			// Synchronous EL1t
@@ -198,7 +198,7 @@ error_invalid_el0_32:
 
 /* ---------------------------- ret_from_fork ---------------------------- */
 
-// Qx: quest "two cooperative printers"
+// Q2: quest "two cooperative printers"
 .globl ret_from_fork
 // the **first** piece of code executed by a newly created process. 
 // only executed once throughout a task's lifetime
