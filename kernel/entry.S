@@ -29,18 +29,18 @@
 	.endm
 
 /* -------------------------------------------------------------------------- */
-// quest: "two preemptive printers". compare to switch.S. why save x0-x18 here but not in switch.S?
+// Qx: quest: "two preemptive printers". compare to switch.S. why save x0-x18 here but not in switch.S?
 .macro	kernel_entry
 	/* The first thing to do in handling an exception: saving cpu state, notably
 	registers x0 - x30, to the stack. */
 	sub	sp, sp, #S_FRAME_SIZE  //  subtracts from `sp` the size of total stored registers (#S_FRAME_SIZE) ...
 	// ... and then fills the stack space
-	/* TODO: your code here */
+	/* STUDENT: TODO: your code here */
 
 	/* to support multitasking, we need to save per-task elr and spsr. do that
 	by using x22/x23 as temporary regs */
-mrs x0, CurrentEL /* TODO: replace this */
-mrs x0, CurrentEL /* TODO: replace this */
+mrs x0, CurrentEL /* STUDENT: TODO: replace this */
+mrs x0, CurrentEL /* STUDENT: TODO: replace this */
 
 	stp	x30, x22, [sp, #16 * 15] 	
 	str	x23, [sp, #16 * 16]
@@ -49,14 +49,14 @@ mrs x0, CurrentEL /* TODO: replace this */
 	.endm
 
 /* -------------------------------------------------------------------------- */
-// quest: "two preemptive printers"
+// Qx: quest: "two preemptive printers"
 .macro	kernel_exit
 	/* A mirror of kernel_entry (above), to be called as the last thing of an
 	exception handler */
 	// first restore elr and spsr. do that via x22/x23 (cf above)
-ldr x23, [sp] /* TODO: replace this */
+ldr x23, [sp] /* STUDENT: TODO: replace this */
 	// also restore x30
-ldp x30, x22, [sp] /* TODO: replace this */
+ldp x30, x22, [sp] /* STUDENT: TODO: replace this */
 
 	msr	elr_el1, x22			
 	msr	spsr_el1, x23
@@ -77,7 +77,7 @@ ldp x30, x22, [sp] /* TODO: replace this */
 	ldp	x24, x25, [sp, #16 * 12]
 	ldp	x26, x27, [sp, #16 * 13]
 	ldp	x28, x29, [sp, #16 * 14]
-	/* TODO: your code here */
+	/* STUDENT: TODO: your code here */
 	eret	// returns to the interrupted execution (e.g. still at EL1)
 	.endm
 
@@ -113,7 +113,7 @@ ldp x30, x22, [sp] /* TODO: replace this */
 */		
 .align	11
 .globl vectors 
-// quest: "two preemptive printers"
+// Qx: quest: "two preemptive printers"
 vectors:
 	//  EL1t -- Exception happens when CPU is at EL1 while the stack pointer (SP) was set to be shared with EL0
 	ventry	sync_invalid_el1t			// Synchronous EL1t
@@ -125,7 +125,7 @@ vectors:
 	//  		This is the mode that our kernel is currently using
 	ventry	sync_invalid_el1h			// Synchronous EL1h
 	// IRQ EL1h  
-ventry irq_invalid_el1t /* TODO: replace this */
+ventry irq_invalid_el1t /* STUDENT: TODO: replace this */
 	ventry	fiq_invalid_el1h			// FIQ EL1h
 	ventry	error_invalid_el1h			// Error EL1h
 
@@ -198,7 +198,7 @@ error_invalid_el0_32:
 
 /* ---------------------------- ret_from_fork ---------------------------- */
 
-// quest "two cooperative printers"
+// Qx: quest "two cooperative printers"
 .globl ret_from_fork
 // the **first** piece of code executed by a newly created process. 
 // only executed once throughout a task's lifetime
@@ -210,9 +210,9 @@ ret_from_fork:
 	When switching to a new task, the kernel restores `fn` and `arg` from
 	`task_struct` to `x19` and `x20`. Below, `ret_from_fork` calls the function
 	stored in `x19` register with the argument stored in `x20`. */
-mov x0, x0 /* TODO: replace this */
+mov x0, x0 /* STUDENT: TODO: replace this */
 	// call a kern task's main func
-blr x0 /* TODO: replace this */
+blr x0 /* STUDENT: TODO: replace this */
 	// Below: 
 	// the kern task returns from main func... what happen next? 
 	// have students think about it. also exercise use of gdb

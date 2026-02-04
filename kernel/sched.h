@@ -1,7 +1,7 @@
 #ifndef _SCHED_H
 #define _SCHED_H
 
-// quest: figure this out
+// Qx: quest: figure this out
 #define THREAD_CPU_CONTEXT 0 // offset of cpu_context in task_struct
 
 #ifndef __ASSEMBLER__
@@ -13,7 +13,7 @@
 #define TASK_SLEEPING 2
 #define TASK_ZOMBIE 3
 #define TASK_RUNNABLE 4 // can run but not on any cpu
-/* TODO: define more task states (as constants) below, e.g. TASK_WAIT */
+/* STUDENT: TODO: define more task states (as constants) below, e.g. TASK_WAIT */
 
 #define PF_KTHREAD		 0x2	// kern thread
 #define PF_UTHREAD	 	 0x4	// user thread (p->mm shared with other user tasks)
@@ -56,7 +56,7 @@ struct trapframe {
 
 /* A user task's VM. 
   A VM can be shared by multi user tasks kernel thread has no such a thing,
-  task_struct::mm=0 will be allocated in a static table, cf mm_table TODO: the
+  task_struct::mm=0 will be allocated in a static table, cf mm_table STUDENT: TODO: the
   size grows with MAX_TASK_XXX_PAGES, could be problem for larger user programs
   in the future...
  */
@@ -79,7 +79,7 @@ struct mm_struct {
 };
 
 /* the metadata describing a task */
-//quest:fast/slow donuts. Understand below
+//Qx: quest:fast/slow donuts. Understand below
 struct task_struct {
     /* private to the task, no task->lock needed */
     struct cpu_context cpu_context; // MUST COME FIRST. register values.

@@ -200,7 +200,7 @@ void test_kern_task_mgmt(void) {
 // test kernel task sleep(), wakeup()
 // a toy version of reader/writer pipe
 // cf pipe.c 
-// quest: "wordsmith"
+// Qx: quest: "wordsmith"
 
 #define NSIZE 32
 static struct spinlock testlock = {.locked=0, .cpu=0, .name="testlock"};
@@ -213,13 +213,13 @@ static void do_write(const char *str, int n) {
     acquire(&testlock); 
     while (i<n) {
         if (nwrite == nread + NSIZE) { // pipe write full
-            /* TODO: your code here */
+            /* STUDENT: TODO: your code here */
         } else {
-            /* TODO: your code here */
+            /* STUDENT: TODO: your code here */
         }
     }
     // done writing n bytes, buf not full, wakeup reader anyway
-    /* TODO: your code here */
+    /* STUDENT: TODO: your code here */
     release(&testlock); 
 }
 
@@ -232,15 +232,15 @@ static int do_read(char *str, int n) {
 
     acquire(&testlock); 
     while (nread == nwrite) {   // pipe empty
-        /* TODO: your code here */
+        /* STUDENT: TODO: your code here */
     }
     for (i=0; i<n; i++) {
         // pipe empty
-            /* TODO: your code here */
+            /* STUDENT: TODO: your code here */
         // read out
-        /* TODO: your code here */
+        /* STUDENT: TODO: your code here */
     }
-    /* TODO: your code here */
+    /* STUDENT: TODO: your code here */
     release(&testlock); 
     return i; 
 }
@@ -299,7 +299,7 @@ void test_kern_reader_writer() {
 //  each task: draw donut animation on a canvas region. maximum 4 regions
 //  modeled after test_kern_tasks_print()
 
-// quest: "two donuts"
+// Qx: quest: "two donuts"
 
 extern void donut(int idx); 	//donut.c
 extern void donut_canvas_init(void); //donut.c don't forget to init canvas -- once
@@ -307,7 +307,7 @@ void kern_task_donut(int idx) {
 	printf("process started EL %d, pid %d idx %d\r\n", 
         get_el(), myproc()->pid, idx);
     // exp: diff proirities --> donuts will turn at diff rates
-	/* TODO: your code here */
+	/* STUDENT: TODO: your code here */
 }
 
 void test_kern_tasks_donut(void) {
@@ -319,7 +319,7 @@ void test_kern_tasks_donut(void) {
     // spawn N donut tasks 
     for (int i=0; i<N_DONUTS; i++) {
         snprintf(name, 10, "donut-%d", i); 
-        /* TODO: your code here */
+        /* STUDENT: TODO: your code here */
     }
 
 	// current we are on the "init" task. 

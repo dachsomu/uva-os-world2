@@ -60,7 +60,7 @@ void generic_timer_init (void) {
 	generic_timer_reset(interval);	// kickoff 1st time firing
 }
 
-//quest: "two preemptive printers"
+//Qx: quest: "two preemptive printers"
 void handle_generic_timer_irq(void)  {
 	// scheduling at SCHED_TICK_HZ could be too frequent. can throttle like: 
 	// if (ticks % 10 == 0 || woken)
@@ -75,7 +75,7 @@ void handle_generic_timer_irq(void)  {
 	generic_timer_reset(interval);
 	
 	// drive the scheduler
-	/* TODO: your code here */
+	/* STUDENT: TODO: your code here */
 }
 
 ////////////////////////////////////////////////////////////////////////////////

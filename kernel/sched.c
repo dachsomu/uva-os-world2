@@ -98,7 +98,7 @@ static int task_on_cpu(struct task_struct *p) {
 /* the scheduler, called by tasks or irq. invoked for both cooperative 
     (via yield()) and preemptive scheduling (via timer interrupt).
     caller must NOT hold sched_lock */
-// quest: "two cooperative printers"
+// Qx: quest: "two cooperative printers"
 void schedule() {
     V("cpu%d schedule", cpuid());
 
@@ -137,7 +137,7 @@ void schedule() {
 		if (max_cr > 0) {
             I("cpu%d picked pid %d state %s credits %ld", cpu, next, 
                 states[task[next]->state], p->credits);
-switch_to(0); /* TODO: replace this */
+switch_to(0); /* STUDENT: TODO: replace this */
 			break;
         }
 
@@ -157,7 +157,7 @@ switch_to(0); /* TODO: replace this */
             procdump(); 
             #endif
             /* if cpu already on idle task, this will do nothing */
-switch_to(0); /* TODO: replace this */
+switch_to(0); /* STUDENT: TODO: replace this */
             break;
         }
 	}
@@ -180,7 +180,7 @@ void leave_scheduler(void) {
 
 /* voluntarily reschedule; gives up all remaining schedule credits
 only called from tasks */
-// quest: "fast/slow donuts"
+// Qx: quest: "fast/slow donuts"
 void yield(void) {    
     struct task_struct *p = myproc(); 
     acquire(&sched_lock); p->credits = 0; release(&sched_lock);
@@ -189,7 +189,7 @@ void yield(void) {
 
 /* caller must hold sched_lock, and not holding next->lock
 called when preemption is disabled, so the cur task wont lose cpu */
-// quest: "two cooperative printers"
+// Qx: quest: "two cooperative printers"
 void switch_to(struct task_struct * next) {
 	struct task_struct * prev; 
     struct task_struct *cur; 
@@ -223,7 +223,7 @@ void switch_to(struct task_struct * next) {
     */
 
     /* below: cpu_switch_to() in switch.S. it will branch to next->cpu_context.pc */
-cpu_switch_to(0, 0); /* TODO: replace this */
+cpu_switch_to(0, 0); /* STUDENT: TODO: replace this */
 }
 
 #define CPU_UTIL_INTERVAL 10  // cal cpu measurement every X ticks
@@ -240,7 +240,7 @@ void timer_tick() {
         if (cur->pid>=0 && cur->state == TASK_RUNNING) // not "idle" (pid -1), and running
             cp->busy++; 
 
-        // calculate cpu util %     quest: hide this until later lab
+        // calculate cpu util %     Qx: quest: hide this until later lab
         if ((cp->total++ % CPU_UTIL_INTERVAL) == CPU_UTIL_INTERVAL - 1) {
             cp->last_util = cp->busy * 100 / CPU_UTIL_INTERVAL; 
             cp->busy = 0; 
@@ -302,7 +302,7 @@ off the cpu */
 /* Wake up all processes sleeping on chan. Only change p->state; wont call
 schedule() return # of tasks woken up.
 Caller must hold sched_lock  */
-// quest: "wordsmith"
+// Qx: quest: "wordsmith"
 static int wakeup_nolock(void *chan) {
     struct task_struct *p;
     int cnt = 0; 
@@ -312,7 +312,7 @@ static int wakeup_nolock(void *chan) {
         // NB: it's possible that p == cur and should be woken up
         if (p->state == TASK_UNUSED) continue; 
         if (p->state == TASK_SLEEPING && p->chan == chan) {            
-            /* TODO: your code here */
+            /* STUDENT: TODO: your code here */
             I("wakeup cpu%d chan=%lx pid %d", cpuid(),
                 (unsigned long)p->chan, p->pid);
         }
@@ -323,7 +323,7 @@ static int wakeup_nolock(void *chan) {
 /* Must be called WITHOUT sched_lock 
 Called from irq (many drivers) or task
 return # of tasks woken up */
-// quest: "wordsmith"
+// Qx: quest: "wordsmith"
 int wakeup(void *chan) {
     int cnt; 
     acquire(&sched_lock);     
@@ -335,7 +335,7 @@ int wakeup(void *chan) {
 /* Atomically release "lk" and sleep on chan.
 Reacquires lk when awakened.
 Called by tasks with @lk held */
-// quest: "wordsmith"
+// Qx: quest: "wordsmith"
 void sleep(void *chan, struct spinlock *lk) {
     struct task_struct *p = myproc();
 
@@ -366,7 +366,7 @@ void sleep(void *chan, struct spinlock *lk) {
     I("sleep chan=%lx pid %d", (unsigned long)chan, p->pid);
 
     /* Go to sleep. */
-    /* TODO: your code here */
+    /* STUDENT: TODO: your code here */
 
     /* although the task has not used up the current tick, bill it regardless.
     thus this task will be disadvantaged in future scheduling  */
@@ -376,7 +376,7 @@ void sleep(void *chan, struct spinlock *lk) {
     know exists for sure. the idle task will return from the schedule() and 
     rls sched_lock. the next timertick will call schedule() and switch 
     to a normal task (if any)  */
-struct task_struct *idle = 0; /* TODO: replace this */
+struct task_struct *idle = 0; /* STUDENT: TODO: replace this */
     mycpu()->proc = idle; 
     cpu_switch_to(p, idle);  
     
@@ -473,7 +473,7 @@ int wait(uint64 addr /*dst user va to copy status to */) {
 /* Becomes a zombie task and switch the cpu away from it 
 only when parent calls wait() this zombie task successfully, the zombie's 
 kernel stack (and task_struct on it) will be recycled. */
-// quest: "kill a donut"
+// Qx: quest: "kill a donut"
 void exit_process(int status) {
     struct task_struct *p = myproc();
 
@@ -502,7 +502,7 @@ void exit_process(int status) {
     /* switch the cpu away from zombie's kern stack to the idle task, which we
     know exists for sure. the next timertick will call schedule() and switch 
     to a normal task (if any) */
-    /* TODO: your code here */
+    /* STUDENT: TODO: your code here */
 
     /* the "switch-to" task will resume from the schedule()'s exit path, which
     will release sched_lock after sched_lock is released, the parent can proceed
@@ -569,7 +569,7 @@ static int lastpid=0; // a hint for the next free tcb slot. slowdown pid reuse f
     arg: arg to kernel thread; or stack (userva) for user thread
     name: to be copied to task->name[]. if null, copy parent's name
 */
-// quest "two cooperative printers"
+// Qx: quest "two cooperative printers"
 int copy_process(unsigned long clone_flags, unsigned long fn, unsigned long arg,
     const char *name) {
 	struct task_struct *p = 0, *cur=myproc(); 
@@ -593,7 +593,7 @@ int copy_process(unsigned long clone_flags, unsigned long fn, unsigned long arg,
     acquire(&cur->lock);	
 
     // load fn/arg to cpu context. cf ret_from_fork
-    /* TODO: your code here */
+    /* STUDENT: TODO: your code here */
 
     // also inherit task name
     if (name)
@@ -609,7 +609,7 @@ int copy_process(unsigned long clone_flags, unsigned long fn, unsigned long arg,
 
     // prep new task's scheduler context: assign values to the pc/sp of new
     // task's cpu_context
-	/* TODO: your code here */
+	/* STUDENT: TODO: your code here */
 	
     release(&cur->lock);
 	release(&p->lock);
@@ -617,7 +617,7 @@ int copy_process(unsigned long clone_flags, unsigned long fn, unsigned long arg,
  	p->parent = cur;
 	// the last thing: change the task's state so that the scheduler can pick up
     // the task to run in the future
-	/* TODO: your code here */
+	/* STUDENT: TODO: your code here */
 	
 	release(&sched_lock);
 

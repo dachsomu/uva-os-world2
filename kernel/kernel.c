@@ -19,7 +19,7 @@ extern void donut(int x, int y); 	//donut.c
 
 struct cpu cpus[NCPU]; 
 
-// quest "two preemptive printers"
+// Qx: quest "two preemptive printers"
 void kernel_main() {
 	uart_init();
 	init_printf(NULL, putc);	
@@ -32,10 +32,10 @@ void kernel_main() {
 	sys_timer_init(); 		// kernel timer: delay, timekeeping...
 	enable_interrupt_controller(0/*coreid*/);
 	/* turn on cpu irq  */
-	/* TODO: your code here */
+	/* STUDENT: TODO: your code here */
 	
 	/* sched ticks alive. preemptive scheduler is on */
-	/* TODO: your code here */
+	/* STUDENT: TODO: your code here */
 	
 	/* now cpu is on its boot stack (boot.S) belonging to the idle task. 
 	schedule() will jump off to kernel stacks belonging to normal tasks
@@ -57,10 +57,10 @@ void init(int arg/*ignored*/) {
 	int wpid; 
     W("entering init");
 
-	// quest: "two cooperative printers"
-	/* TODO: your code here */
-	// quest: "two donuts"
-	/* TODO: your code here */
+	// Qx: quest: "two cooperative printers"
+	/* STUDENT: TODO: your code here */
+	// Qx: quest: "two donuts"
+	/* STUDENT: TODO: your code here */
 	// test_kern_task_mgmt();
 	// test_kern_reader_writer(); 
 

@@ -1,6 +1,6 @@
 #include "sched.h"
 
-// quest: "two cooperative printers" (get help of gdb, AI)
+// Qx: quest: "two cooperative printers" (get help of gdb, AI)
 // void cpu_switch_to(struct task_struct* prev, struct task_struct* next)
 // save cpu regs (callee saved, sp/pc) to prev->cpu_context; 
 // load next->cpu_context to the cpu regs
@@ -24,13 +24,13 @@ cpu_switch_to:
 	str	x30, [x8]			// save LR (x30) to cpu_context.pc, pointing to where this function is called from
 	
 	// calculate the address of the next task's `cpu_context`
-add x8, x0, x0 /* TODO: replace this */
+add x8, x0, x0 /* STUDENT: TODO: replace this */
 	
 	// below: restore the CPU context of "switch_to" task to CPU regs
-	/* TODO: your code here */
+	/* STUDENT: TODO: your code here */
 	ldr	x30, [x8]				// x30 == LR
 	// restore the value of sp, which is already loaded from the cpu context
-mov sp, x0 /* TODO: replace this */
+mov sp, x0 /* STUDENT: TODO: replace this */
 
 	// The `ret` instruction will jump to the location pointed to by the link 
 	// register (LR or `x30`). If we are switching to a task for the first time, 

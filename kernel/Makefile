@@ -15,8 +15,8 @@ COPS = -Wall -Werror -nostdlib -nostartfiles -ffreestanding \
 -g 
 
 # Temporarily allow unused variables to avoid compiler complaints.
-# This should be commented out after completing all quests.
-COPS += -Wno-unused-variable -Wno-unused-but-set-variable # TODO: replace this
+# This should be commented out after completing all Qx: quests.
+COPS += -Wno-unused-variable -Wno-unused-but-set-variable # STUDENT: TODO: replace this
 
 # the default debug level, to be overridden by less verbose levels in individual files 
 COPS += -DCONFIG_KAGE_GLOBAL_DEBUG_LEVEL=10   # verbose

@@ -76,8 +76,8 @@ static PIXEL int2rgb (int value);
     y = y * _ >> 10;
 
 // draw dots on canvas, closer to the original js version (see comment at the end)
-//quest: "two donuts". understand code below
-//quest: "donuts in sync"
+//Qx: quest: "two donuts". understand code below
+//Qx: quest: "donuts in sync"
 void donut_pixel(int idx) {
     int sA = 1024, cA = 0, sB = 1024, cB = 0, _;
     
@@ -147,7 +147,7 @@ void donut_pixel(int idx) {
                 x = 1;
             }
         }
-        /* TODO: your code here */
+        /* STUDENT: TODO: your code here */
     }
 }
 
